@@ -8,6 +8,8 @@
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; line-height: 1.6; color: #333; }
         .container { max-width: 800px; margin: 0 auto; padding: 20px; }
+        .language-selector { text-align: center; margin-bottom: 20px; }
+        .language-selector select { padding: 8px 12px; border: 1px solid #ddd; border-radius: 4px; }
         h1 { color: #2c3e50; margin-bottom: 30px; text-align: center; }
         h2 { color: #34495e; margin: 30px 0 15px 0; border-bottom: 2px solid #3498db; padding-bottom: 5px; }
         h3 { color: #2c3e50; margin: 20px 0 10px 0; }
@@ -15,45 +17,313 @@
         ul { margin: 15px 0; padding-left: 20px; }
         li { margin-bottom: 8px; }
         .last-updated { text-align: center; color: #7f8c8d; font-style: italic; margin-bottom: 30px; }
-        @media (max-width: 600px) { .container { padding: 15px; } }
     </style>
 </head>
 <body>
     <div class="container">
-        <h1>Omnicasa Mobile Policy</h1>
-        <p class="last-updated">Last updated: December 2024</p>
+        <div class="language-selector">
+            <select id="languageSelect" onchange="changeLanguage()">
+                <option value="th">ไทย</option>
+                <option value="en">English</option>
+                <option value="vi">Tiếng Việt</option>
+                <option value="ms">Bahasa Melayu</option>
+                <option value="ko">한국어</option>
+            </select>
+        </div>
 
-        <h2>Privacy Policy</h2>
-        <h3>Information We Collect</h3>
-        <p>We collect information you provide directly to us, such as when you create an account, use our services, or contact us for support.</p>
-        
-        <h3>How We Use Your Information</h3>
-        <ul>
-            <li>Provide, maintain, and improve our services</li>
-            <li>Process transactions and send related information</li>
-            <li>Send technical notices and support messages</li>
-            <li>Respond to your comments and questions</li>
-        </ul>
+        <h1 id="title">Aspire Partner Privacy Policy</h1>
+        <p class="last-updated" id="lastUpdated">Last updated: December 2024</p>
 
-        <h3>Information Sharing</h3>
-        <p>We do not sell, trade, or otherwise transfer your personal information to third parties without your consent, except as described in this policy.</p>
+        <h2 id="privacyTitle">Privacy Policy</h2>
+        <p id="privacyIntro" style="margin-bottom: 20px;"></p>
 
-        <h2>Terms of Service</h2>
-        <h3>Acceptance of Terms</h3>
-        <p>By accessing and using Omnicasa Mobile, you accept and agree to be bound by the terms and provision of this agreement.</p>
+        <h3 id="personalDataTitle">Personal Data</h3>
+        <p id="personalDataText"></p>
 
-        <h3>Use License</h3>
-        <p>Permission is granted to temporarily download one copy of Omnicasa Mobile for personal, non-commercial transitory viewing only.</p>
+        <h3 id="dataCollectionTitle">Data Collection</h3>
+        <p id="dataCollectionText"></p>
+        <ul id="dataCollectionList"></ul>
 
-        <h3>Disclaimer</h3>
-        <p>The materials on Omnicasa Mobile are provided on an 'as is' basis. Omnicasa makes no warranties, expressed or implied, and hereby disclaims and negates all other warranties.</p>
+        <h3 id="dataUsageTitle">Data Usage</h3>
+        <p id="dataUsageIntro"></p>
+        <ul id="dataUsageList"></ul>
 
-        <h2>Contact Information</h2>
-        <p>If you have any questions about this policy, please contact us at:</p>
-        <ul>
-            <li>Email: support@omnicasa.com</li>
-            <li>Phone: +1 (555) 123-4567</li>
+        <h3 id="legalPurposesTitle">Legal Purposes</h3>
+        <p id="legalPurposesText"></p>
+        <ul id="legalPurposesList"></ul>
+
+        <h3 id="dataDisclosureTitle">Data Disclosure</h3>
+        <p id="dataDisclosureText"></p>
+
+        <h2 id="contactTitle">Contact Information</h2>
+        <p id="contactText">If you have any questions about this policy, please contact us at:</p>
+        <ul id="contactList">
+            <li>Email: support@aspire.com</li>
+            <li>Phone: +66 (0) 2-123-4567</li>
         </ul>
     </div>
+
+    <script>
+        const translations = {
+            th: {
+                title: "นโยบายคุ้มครองข้อมูลส่วนบุคคลของ Aspire Partner",
+                lastUpdated: "อัปเดตล่าสุด: ธันวาคม 2567",
+                privacyTitle: "นโยบายคุ้มครองข้อมูลส่วนบุคคล",
+                privacyIntro: "นโยบายคุ้มครองข้อมูลส่วนบุคคลนี้ (\"นโยบาย\") อธิบายว่า บจก.แอสไปร์ ไลฟ์สไตล์ เซอร์วิสเซส (ประเทศไทย) บริษัทที่เกี่ยวข้องกัน (รวมเรียกว่า \"แอสไปร์\" หรือ \"เรา\") จัดเก็บรวบรวมใช้ประมวลผล และเปิดเผยข้อมูลส่วนบุคคลของท่าน ผ่านการใช้งานแอพพลิเคชั่น และเว็บไซต์ของแอสไปร์ (รวมถึงแอพพลิเคชั่นบนโทรศัพท์มือถือ และเว็บไซต์ที่ดำเนินการโดยแอสไปร์ (รวมเรียกว่า \"แอพฯ\" หรือ \"เว็บไซต์\") ผลิตภัณฑ์ ฟีเจอร์ (feature) อย่างไร นโยบายนี้ใช้กับพาร์ทเนอร์คนขับ และพาร์ทเนอร์ผู้ให้ับริการ (รวมเรียกว่า \"ท่าน\")",
+                personalDataTitle: "ข้อมูลส่วนบุคคล",
+                personalDataText: "\"ข้อมูลส่วนบุคคล\" หมายถึง ข้อมูลของท่าน ที่สามารถระบุตัวตนของท่านได้ โดยไม่จำกัดเฉพาะ ชื่อ หมายเลขโทรศัพท์ ที่อยู่ไปรษณีย์อิเล็กทรอนิกส์ (email address) ภาพถ่ายของท่าน ข้อมูลยานพาหนะ",
+                dataCollectionTitle: "การเก็บรวบรวมข้อมูลส่วนบุคคล",
+                dataCollectionText: "เราเก็บรวบรวมข้อมูลส่วนบุคคลเกี่ยวกับท่านตามวิธีการด้านล่างนี้ เราอาจรวมข้อมูลส่วนบุคคลที่เก็บรวบรวมนี้เข้ากับข้อมูลส่วนบุคคลอื่นในความครอบครองของเรา ท่านให้ข้อมูลส่วนบุคคลของท่านกับเรา เราเก็บรวบรวมข้อมูลส่วนบุคคลของท่านเมื่อท่านให้เรามาอย่างสมัครใจ เช่น ท่านอาจให้ข้อมูลส่วนบุคคลของท่านกับเรา เมื่อท่าน:",
+                dataCollectionList: [
+                    "กรอกรายละเอียดหน้าประวัติผู้ใช้ หรือใบสมัคร",
+                    "ให้ข้อมูลเพื่อใช้ในการประเมินคุณสมบัติของท่านในการให้บริการในฐานะพาร์ทเนอร์คนขับของแอสไปร์"
+                ],
+                dataUsageTitle: "การใช้ข้อมูลส่วนบุคคล",
+                dataUsageIntro: "แอสไปร์อาจรวบรวมข้อมูลส่วนบุคคลของท่านเพื่อวัตถุประสงค์ดังต่อไปนี้ (\"วัตถุประสงค์\")",
+                dataUsageList: [
+                    "ให้บริการและฟีเจอร์ - ข้อมูลส่วนบุคคลของท่านอาจถูกใช้ เพื่อให้บริการ ทำให้มีความเฉพาะตัว รักษา และพัฒนาผลิตภัณฑ์และบริการของเรา",
+                    "การวิเคราะห์ข้อมูล การทดสอบและวิจัย",
+                    "วัตถุประสงค์ทางกฎหมาย - เราอาจใช้ข้อมูลส่วนบุคคลที่เราเก็บรวบรวมเพื่อสอบสวนและยุติคำร้องหรือข้อพิพาท หรือตามที่ได้รับอนุญาตหรือต้องกระทำตามกฎหมายที่บังคับใช้"
+                ],
+                legalPurposesTitle: "วัตถุประสงค์ทางกฎหมาย",
+                legalPurposesText: "เราอาจใช้ข้อมูลส่วนบุคคลของท่านเมื่อเราต้อง ได้รับคำปรึกษา ได้รับคำแนะนำ หรือถูกร้องขอให้กระทำเช่นนั้น โดยที่ปรึกษาทางกฎหมาย หรือโดยหน่วยงานทางกฎหมาย รัฐบาล หรือหน่วยงานราชการอื่นทั้งในประเทศและต่างประเทศ",
+                legalPurposesList: [
+                    "ปฏิบัติตามคำสั่งศาล หรือหน่วยงานทางกฎหมาย รัฐบาล หรือหน่วยงานราชการอื่น",
+                    "บังคับใช้ข้อกำหนดและเงื่อนไข หรือข้อตกลงอื่นของเรา",
+                    "คุ้มครองสิทธิหรือทรัพย์สินของเราในกรณีที่มีคำร้องหรือข้อพิพาท"
+                ],
+                dataDisclosureTitle: "การเปิดเผยข้อมูลส่วนบุคคล",
+                dataDisclosureText: "เราจำเป็นต้องให้ข้อมูลส่วนบุคคลกับหลายฝ่ายเพื่อวัตถุประสงค์ รวมถึง กับบุคคลภายนอก ตัวอย่างเช่น เราอาจให้ตำแหน่งและชื่อของคนขับกับบุคคลภายนอก เมื่อลูกค้าร้องขอใช้บริการ",
+                contactTitle: "ข้อมูลติดต่อ",
+                contactText: "หากท่านมีคำถามเกี่ยวกับนโยบายนี้ กรุณาติดต่อเราที่:",
+                contactList: [
+                    "อีเมล: support@aspire.com",
+                    "โทรศัพท์: +66 (0) 2-123-4567"
+                ]
+            },
+            en: {
+                title: "Aspire Partner Privacy Policy",
+                lastUpdated: "Last updated: December 2024",
+                privacyTitle: "Privacy Policy",
+                privacyIntro: "This Privacy Policy (\"Policy\") describes how Aspire Lifestyle Services (Thailand) Co., Ltd. and its affiliated companies (collectively referred to as \"Aspire\" or \"we\") collect, use, process, and disclose your personal data through the use of Aspire applications and websites (including mobile applications and websites operated by Aspire, collectively referred to as \"Apps\" or \"Websites\"), products, and features. This policy applies to driver partners and service partners (collectively referred to as \"you\").",
+                personalDataTitle: "Personal Data",
+                personalDataText: "\"Personal Data\" means your data that can identify you, including but not limited to name, phone number, email address, your photos, vehicle information.",
+                dataCollectionTitle: "Personal Data Collection",
+                dataCollectionText: "We collect personal data about you through the following methods. We may combine this collected personal data with other personal data in our possession. You provide personal data to us. We collect your personal data when you voluntarily provide it to us, for example, you may provide your personal data to us when you:",
+                dataCollectionList: [
+                    "Fill in user profile details or application forms",
+                    "Provide information for evaluating your qualifications to provide services as an Aspire driver partner"
+                ],
+                dataUsageTitle: "Use of Personal Data",
+                dataUsageIntro: "Aspire may collect your personal data for the following purposes (\"Purposes\"):",
+                dataUsageList: [
+                    "Provide services and features - Your personal data may be used to provide services, customize, maintain, and develop our products and services",
+                    "Data analysis, testing and research",
+                    "Legal purposes - We may use the personal data we collect to investigate and resolve complaints or disputes, or as permitted or required by applicable law"
+                ],
+                legalPurposesTitle: "Legal Purposes",
+                legalPurposesText: "We may use your personal data when we need to receive consultation, receive advice, or be requested to do so by legal advisors or by legal agencies, government, or other government agencies both domestic and international.",
+                legalPurposesList: [
+                    "Comply with court orders or legal agencies, government, or other government agencies",
+                    "Enforce our terms and conditions or other agreements",
+                    "Protect our rights or property in case of complaints or disputes"
+                ],
+                dataDisclosureTitle: "Personal Data Disclosure",
+                dataDisclosureText: "We need to provide personal data to various parties for purposes, including to third parties. For example, we may provide driver location and name to third parties when customers request services.",
+                contactTitle: "Contact Information",
+                contactText: "If you have any questions about this policy, please contact us at:",
+                contactList: [
+                    "Email: support@aspire.com",
+                    "Phone: +66 (0) 2-123-4567"
+                ]
+            },
+            vi: {
+                title: "Chính sách Bảo mật Đối tác Aspire",
+                lastUpdated: "Cập nhật lần cuối: Tháng 12 năm 2024",
+                privacyTitle: "Chính sách Bảo mật",
+                privacyIntro: "Chính sách Bảo mật này (\"Chính sách\") mô tả cách Công ty TNHH Aspire Lifestyle Services (Thái Lan) và các công ty liên kết (gọi chung là \"Aspire\" hoặc \"chúng tôi\") thu thập, sử dụng, xử lý và tiết lộ dữ liệu cá nhân của bạn thông qua việc sử dụng các ứng dụng và trang web của Aspire (bao gồm ứng dụng di động và trang web do Aspire vận hành, gọi chung là \"Ứng dụng\" hoặc \"Trang web\"), sản phẩm và tính năng. Chính sách này áp dụng cho đối tác tài xế và đối tác dịch vụ (gọi chung là \"bạn\").",
+                personalDataTitle: "Dữ liệu Cá nhân",
+                personalDataText: "\"Dữ liệu Cá nhân\" có nghĩa là dữ liệu của bạn có thể xác định danh tính bạn, bao gồm nhưng không giới hạn tên, số điện thoại, địa chỉ email, ảnh của bạn, thông tin phương tiện.",
+                dataCollectionTitle: "Thu thập Dữ liệu Cá nhân",
+                dataCollectionText: "Chúng tôi thu thập dữ liệu cá nhân về bạn thông qua các phương pháp sau. Chúng tôi có thể kết hợp dữ liệu cá nhân đã thu thập này với dữ liệu cá nhân khác trong quyền sở hữu của chúng tôi. Bạn cung cấp dữ liệu cá nhân cho chúng tôi. Chúng tôi thu thập dữ liệu cá nhân của bạn khi bạn tự nguyện cung cấp cho chúng tôi, ví dụ, bạn có thể cung cấp dữ liệu cá nhân của bạn cho chúng tôi khi bạn:",
+                dataCollectionList: [
+                    "Điền thông tin chi tiết hồ sơ người dùng hoặc đơn đăng ký",
+                    "Cung cấp thông tin để đánh giá trình độ của bạn trong việc cung cấp dịch vụ với tư cách là đối tác tài xế của Aspire"
+                ],
+                dataUsageTitle: "Sử dụng Dữ liệu Cá nhân",
+                dataUsageIntro: "Aspire có thể thu thập dữ liệu cá nhân của bạn cho các mục đích sau (\"Mục đích\"):",
+                dataUsageList: [
+                    "Cung cấp dịch vụ và tính năng - Dữ liệu cá nhân của bạn có thể được sử dụng để cung cấp dịch vụ, tùy chỉnh, duy trì và phát triển sản phẩm và dịch vụ của chúng tôi",
+                    "Phân tích dữ liệu, thử nghiệm và nghiên cứu",
+                    "Mục đích pháp lý - Chúng tôi có thể sử dụng dữ liệu cá nhân mà chúng tôi thu thập để điều tra và giải quyết khiếu nại hoặc tranh chấp, hoặc theo quy định của pháp luật hiện hành"
+                ],
+                legalPurposesTitle: "Mục đích Pháp lý",
+                legalPurposesText: "Chúng tôi có thể sử dụng dữ liệu cá nhân của bạn khi chúng tôi cần nhận tư vấn, nhận lời khuyên, hoặc được yêu cầu làm như vậy bởi các cố vấn pháp lý hoặc bởi các cơ quan pháp lý, chính phủ, hoặc các cơ quan chính phủ khác trong và ngoài nước.",
+                legalPurposesList: [
+                    "Tuân thủ lệnh của tòa án hoặc các cơ quan pháp lý, chính phủ, hoặc các cơ quan chính phủ khác",
+                    "Thực thi các điều khoản và điều kiện hoặc thỏa thuận khác của chúng tôi",
+                    "Bảo vệ quyền hoặc tài sản của chúng tôi trong trường hợp có khiếu nại hoặc tranh chấp"
+                ],
+                dataDisclosureTitle: "Tiết lộ Dữ liệu Cá nhân",
+                dataDisclosureText: "Chúng tôi cần cung cấp dữ liệu cá nhân cho nhiều bên vì mục đích, bao gồm cả bên thứ ba. Ví dụ, chúng tôi có thể cung cấp vị trí và tên của tài xế cho bên thứ ba khi khách hàng yêu cầu dịch vụ.",
+                contactTitle: "Thông tin Liên hệ",
+                contactText: "Nếu bạn có bất kỳ câu hỏi nào về chính sách này, vui lòng liên hệ với chúng tôi tại:",
+                contactList: [
+                    "Email: support@aspire.com",
+                    "Điện thoại: +66 (0) 2-123-4567"
+                ]
+            },
+            ms: {
+                title: "Dasar Privasi Rakan Kongsi Aspire",
+                lastUpdated: "Kemaskini terakhir: Disember 2024",
+                privacyTitle: "Dasar Privasi",
+                privacyIntro: "Dasar Privasi ini (\"Dasar\") menerangkan bagaimana Aspire Lifestyle Services (Thailand) Sdn. Bhd. dan syarikat-syarikat berkaitan (secara kolektif dirujuk sebagai \"Aspire\" atau \"kami\") mengumpul, menggunakan, memproses, dan mendedahkan data peribadi anda melalui penggunaan aplikasi dan laman web Aspire (termasuk aplikasi mudah alih dan laman web yang dikendalikan oleh Aspire, secara kolektif dirujuk sebagai \"Aplikasi\" atau \"Laman Web\"), produk, dan ciri-ciri. Dasar ini terpakai kepada rakan kongsi pemandu dan rakan kongsi perkhidmatan (secara kolektif dirujuk sebagai \"anda\").",
+                personalDataTitle: "Data Peribadi",
+                personalDataText: "\"Data Peribadi\" bermaksud data anda yang boleh mengenal pasti anda, termasuk tetapi tidak terhad kepada nama, nombor telefon, alamat e-mel, foto anda, maklumat kenderaan.",
+                dataCollectionTitle: "Pengumpulan Data Peribadi",
+                dataCollectionText: "Kami mengumpul data peribadi tentang anda melalui kaedah berikut. Kami mungkin menggabungkan data peribadi yang dikumpul ini dengan data peribadi lain dalam milikan kami. Anda memberikan data peribadi kepada kami. Kami mengumpul data peribadi anda apabila anda memberikannya kepada kami secara sukarela, contohnya, anda mungkin memberikan data peribadi anda kepada kami apabila anda:",
+                dataCollectionList: [
+                    "Mengisi butiran profil pengguna atau borang permohonan",
+                    "Memberikan maklumat untuk menilai kelayakan anda dalam menyediakan perkhidmatan sebagai rakan kongsi pemandu Aspire"
+                ],
+                dataUsageTitle: "Penggunaan Data Peribadi",
+                dataUsageIntro: "Aspire mungkin mengumpul data peribadi anda untuk tujuan berikut (\"Tujuan\"):",
+                dataUsageList: [
+                    "Menyediakan perkhidmatan dan ciri-ciri - Data peribadi anda mungkin digunakan untuk menyediakan perkhidmatan, menyesuaikan, mengekalkan, dan membangunkan produk dan perkhidmatan kami",
+                    "Analisis data, ujian dan penyelidikan",
+                    "Tujuan undang-undang - Kami mungkin menggunakan data peribadi yang kami kumpul untuk menyiasat dan menyelesaikan aduan atau pertikaian, atau seperti yang dibenarkan atau diperlukan oleh undang-undang yang berkenaan"
+                ],
+                legalPurposesTitle: "Tujuan Undang-undang",
+                legalPurposesText: "Kami mungkin menggunakan data peribadi anda apabila kami perlu menerima konsultasi, menerima nasihat, atau diminta untuk berbuat demikian oleh penasihat undang-undang atau oleh agensi undang-undang, kerajaan, atau agensi kerajaan lain di dalam dan luar negara.",
+                legalPurposesList: [
+                    "Mematuhi perintah mahkamah atau agensi undang-undang, kerajaan, atau agensi kerajaan lain",
+                    "Menguatkuasakan terma dan syarat atau perjanjian lain kami",
+                    "Melindungi hak atau harta kami dalam kes aduan atau pertikaian"
+                ],
+                dataDisclosureTitle: "Pendedahan Data Peribadi",
+                dataDisclosureText: "Kami perlu memberikan data peribadi kepada pelbagai pihak untuk tujuan, termasuk kepada pihak ketiga. Sebagai contoh, kami mungkin memberikan lokasi dan nama pemandu kepada pihak ketiga apabila pelanggan meminta perkhidmatan.",
+                contactTitle: "Maklumat Hubungan",
+                contactText: "Jika anda mempunyai sebarang soalan tentang dasar ini, sila hubungi kami di:",
+                contactList: [
+                    "E-mel: support@aspire.com",
+                    "Telefon: +66 (0) 2-123-4567"
+                ]
+            },
+            ko: {
+                title: "Aspire 파트너 개인정보 보호정책",
+                lastUpdated: "최종 업데이트: 2024년 12월",
+                privacyTitle: "개인정보 보호정책",
+                privacyIntro: "이 개인정보 보호정책(\"정책\")은 Aspire Lifestyle Services (Thailand) Co., Ltd. 및 관련 회사들(통칭 \"Aspire\" 또는 \"우리\")이 Aspire 애플리케이션 및 웹사이트(모바일 애플리케이션 및 Aspire가 운영하는 웹사이트 포함, 통칭 \"앱\" 또는 \"웹사이트\"), 제품, 기능을 통해 귀하의 개인정보를 수집, 사용, 처리, 공개하는 방법을 설명합니다. 이 정책은 드라이버 파트너 및 서비스 파트너(통칭 \"귀하\")에게 적용됩니다.",
+                personalDataTitle: "개인정보",
+                personalDataText: "\"개인정보\"는 귀하를 식별할 수 있는 귀하의 데이터를 의미하며, 이름, 전화번호, 이메일 주소, 귀하의 사진, 차량 정보 등을 포함하되 이에 국한되지 않습니다.",
+                dataCollectionTitle: "개인정보 수집",
+                dataCollectionText: "우리는 다음과 같은 방법으로 귀하에 대한 개인정보를 수집합니다. 우리는 수집된 이 개인정보를 우리가 보유한 다른 개인정보와 결합할 수 있습니다. 귀하는 우리에게 개인정보를 제공합니다. 우리는 귀하가 자발적으로 우리에게 제공할 때 귀하의 개인정보를 수집합니다. 예를 들어, 귀하는 다음의 경우에 귀하의 개인정보를 우리에게 제공할 수 있습니다:",
+                dataCollectionList: [
+                    "사용자 프로필 세부사항 또는 신청서 작성",
+                    "Aspire 드라이버 파트너로서 서비스 제공 자격 평가를 위한 정보 제공"
+                ],
+                dataUsageTitle: "개인정보 사용",
+                dataUsageIntro: "Aspire는 다음 목적(\"목적\")을 위해 귀하의 개인정보를 수집할 수 있습니다:",
+                dataUsageList: [
+                    "서비스 및 기능 제공 - 귀하의 개인정보는 서비스 제공, 맞춤화, 유지보수 및 우리 제품 및 서비스 개발에 사용될 수 있습니다",
+                    "데이터 분석, 테스트 및 연구",
+                    "법적 목적 - 우리는 수집한 개인정보를 사용하여 불만사항이나 분쟁을 조사하고 해결하거나, 적용 가능한 법률에 의해 허용되거나 요구되는 대로 사용할 수 있습니다"
+                ],
+                legalPurposesTitle: "법적 목적",
+                legalPurposesText: "우리는 법률 자문가나 법률 기관, 정부 또는 국내외 기타 정부 기관에 의해 상담을 받거나, 조언을 받거나, 그렇게 요청받을 때 귀하의 개인정보를 사용할 수 있습니다.",
+                legalPurposesList: [
+                    "법원 명령 또는 법률 기관, 정부 또는 기타 정부 기관의 준수",
+                    "우리의 이용약관 또는 기타 계약의 시행",
+                    "불만사항이나 분쟁이 있는 경우 우리의 권리나 재산 보호"
+                ],
+                dataDisclosureTitle: "개인정보 공개",
+                dataDisclosureText: "우리는 목적을 위해 여러 당사자에게 개인정보를 제공해야 하며, 여기에는 제3자도 포함됩니다. 예를 들어, 고객이 서비스를 요청할 때 드라이버의 위치와 이름을 제3자에게 제공할 수 있습니다.",
+                contactTitle: "연락처 정보",
+                contactText: "이 정책에 대해 궁금한 점이 있으시면 다음으로 연락해 주세요:",
+                contactList: [
+                    "이메일: support@aspire.com",
+                    "전화: +66 (0) 2-123-4567"
+                ]
+            }
+        };
+
+        function getLanguageFromURL() {
+            const urlParams = new URLSearchParams(window.location.search);
+            return urlParams.get('lang') || 'th';
+        }
+
+        function changeLanguage() {
+            const selectedLang = document.getElementById('languageSelect').value;
+            updateContent(selectedLang);
+            updateURL(selectedLang);
+        }
+
+        function updateContent(lang) {
+            const t = translations[lang] || translations['th'];
+            
+            document.getElementById('title').textContent = t.title;
+            document.getElementById('lastUpdated').textContent = t.lastUpdated;
+            document.getElementById('privacyTitle').textContent = t.privacyTitle;
+            document.getElementById('privacyIntro').textContent = t.privacyIntro;
+            document.getElementById('personalDataTitle').textContent = t.personalDataTitle;
+            document.getElementById('personalDataText').textContent = t.personalDataText;
+            document.getElementById('dataCollectionTitle').textContent = t.dataCollectionTitle;
+            document.getElementById('dataCollectionText').textContent = t.dataCollectionText;
+            document.getElementById('dataUsageTitle').textContent = t.dataUsageTitle;
+            document.getElementById('dataUsageIntro').textContent = t.dataUsageIntro;
+            document.getElementById('legalPurposesTitle').textContent = t.legalPurposesTitle;
+            document.getElementById('legalPurposesText').textContent = t.legalPurposesText;
+            document.getElementById('dataDisclosureTitle').textContent = t.dataDisclosureTitle;
+            document.getElementById('dataDisclosureText').textContent = t.dataDisclosureText;
+            document.getElementById('contactTitle').textContent = t.contactTitle;
+            document.getElementById('contactText').textContent = t.contactText;
+
+            // Update lists
+            const dataCollectionList = document.getElementById('dataCollectionList');
+            dataCollectionList.innerHTML = '';
+            t.dataCollectionList.forEach(item => {
+                const li = document.createElement('li');
+                li.textContent = item;
+                dataCollectionList.appendChild(li);
+            });
+
+            const dataUsageList = document.getElementById('dataUsageList');
+            dataUsageList.innerHTML = '';
+            t.dataUsageList.forEach(item => {
+                const li = document.createElement('li');
+                li.textContent = item;
+                dataUsageList.appendChild(li);
+            });
+
+            const legalPurposesList = document.getElementById('legalPurposesList');
+            legalPurposesList.innerHTML = '';
+            t.legalPurposesList.forEach(item => {
+                const li = document.createElement('li');
+                li.textContent = item;
+                legalPurposesList.appendChild(li);
+            });
+
+            const contactList = document.getElementById('contactList');
+            contactList.innerHTML = '';
+            t.contactList.forEach(item => {
+                const li = document.createElement('li');
+                li.textContent = item;
+                contactList.appendChild(li);
+            });
+        }
+
+        function updateURL(lang) {
+            const url = new URL(window.location);
+            url.searchParams.set('lang', lang);
+            window.history.replaceState({}, '', url);
+        }
+
+        // Initialize on page load
+        window.onload = function() {
+            const lang = getLanguageFromURL();
+            document.getElementById('languageSelect').value = lang;
+            updateContent(lang);
+        };
+    </script>
 </body>
 </html>
